@@ -1,0 +1,25 @@
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        '''
+        Solution: put numbers into a stack 
+        1. for each element in nums check if that number is alr in stack (if so --> true; else false)
+        '''
+        # num_Stack = []
+        # for num in nums:
+        #     if num in num_Stack:
+        #         return True
+        #     else:
+        #         #we know it unique so no need to worry about other elements in the stack
+        #         num_Stack.append(num)
+        # return False
+
+        '''
+        hashet time!!!
+        '''
+        hashset = set()
+        for num in nums:
+            if num in hashset:
+                return True
+            else:
+                hashset.add(num)
+        return False
