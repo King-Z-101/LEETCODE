@@ -1,0 +1,11 @@
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        powerset = [[]]  # empty list
+        for num in nums:
+            subset = []
+            for i in powerset:
+                subset.append([num] + i)
+            powerset += subset
+
+        return powerset
+        
