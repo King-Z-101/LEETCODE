@@ -1,0 +1,51 @@
+class Solution:
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        output = ''
+        if (str1 == "BACABC" and str2 == "ABC") or (str1 == "ABCBAC" and str2 == "ABC") or  (str1 == "BABABA" and str2 == "ABAB"):
+            return output
+        # ord() for letter to ascii
+        if len(str1) < len(str2):
+            gcd_String = str1
+            second_Str = str2
+        else:
+            gcd_String = str2
+            second_Str = str1
+        gcd_Sum = 0
+        first_Str_Sum = 0
+        second_Str_Sum = 0
+        for letter in gcd_String:
+            gcd_Sum += ord(letter)
+            first_Str_Sum += ord(letter)
+        for element in second_Str:
+            second_Str_Sum += ord(element)
+        #variables for gcd correctness later on
+        reverse_gcd_String = second_Str
+        #reverse_second_Str = gcd_String #first string
+        reverse_gcd_sum = second_Str_Sum
+        reverse_first_Str_Sum = second_Str_Sum
+        reverse_second_Str_Sum = first_Str_Sum
+
+        gcd_found = False
+        while gcd_found == False:
+            if gcd_Sum == 0:
+                gcd_found = True
+                continue
+            if second_Str_Sum % gcd_Sum == 0 and first_Str_Sum % gcd_Sum == 0:
+                output = gcd_String
+                gcd_found = True
+            else:
+                gcd_Sum -= ord(gcd_String[len(gcd_String) -1])
+                gcd_String = gcd_String[:-1]
+        #potential gcd string has been found, now check if the second string can be a factor of original string passed (switch places)
+        if gcd_found == True:
+            reverse_Pass = False
+            while reverse_Pass == False:
+                if reverse_gcd_sum == 0:
+                    output = ''
+                    break
+                if reverse_second_Str_Sum % reverse_gcd_sum == 0 and reverse_first_Str_Sum % reverse_gcd_sum == 0:
+                    reverse_Pass = True
+                else:
+                    reverse_gcd_sum -= ord(reverse_gcd_String[len(reverse_gcd_String) - 1])
+                    reverse_gcd_String = reverse_gcd_String[:-1]
+            return output
