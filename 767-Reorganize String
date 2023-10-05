@@ -1,0 +1,56 @@
+class Solution:
+    def reorganizeString(self, s: str) -> str:
+        '''
+        Steps:
+        1. go through the string letter by letter (for letter in s) and check if the letters next to each other have the same asciicode
+        2. If so, remove letter and place it somewhere else (stack!!), now check if next letter is distinct
+        3. If so, immeditately place the removed letter back into the original string now that u have a spacer letter
+        4. If you reach end of string with two of the same letters and no letters in the stack, then reorganixing is not possible (return "")
+        '''
+        count = Counter(s) # hashmap, count each char
+        maxHeap = [[-cnt, char] for char, cnt in count.items()]
+        heapq.heapify(maxHeap)
+        prev = None
+        result = ""
+        while maxHeap or prev:
+            if prev and not maxHeap:
+                return  ""
+            #most frequent except prev
+            cnt, char = heapq.heappop(maxHeap)
+            result += char
+            cnt += 1
+
+            if prev:
+                heapq.heappush(maxHeap, prev)
+                prev = None
+            if cnt != 0:
+                prev = [cnt, char]
+        return result
+
+        # letters = []
+        # og = s
+        # i = 0
+        # #only keep going if we can compare the next to letters
+        # while i + 1 != len(s):
+        #     if s[i] == s[i + 1]:
+        #         letters.append(s[i])
+        #         s = s[:i] + s[i+1:]
+        #         #I has to be reset to 0
+        #         continue
+        #     else:
+        #         if letters:
+        #             s = s[:i+2] + letters.pop() + s[i+2:]
+        #             i += 1
+        #             continue
+        #         elif i <= len(og):
+        #             i += 1
+        #             continue
+        #         else:
+        #             break
+        # while letters:
+        #     s += letters.pop()
+        # if s[-1] == s[-2]:
+        #     s = s[-1] + s[:-1]
+        # if s[0] == s[1]:
+        #     return ""
+        # return s
