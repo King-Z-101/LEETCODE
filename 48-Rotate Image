@@ -1,0 +1,39 @@
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        PseudoCode:
+        Note: square matrix!!! (n*n)
+        1.create 4 pointers (LR + TB)
+        2. rotations will occur as long as pointers dont cross
+        Pointers give is coordinates for where numbers will move to!!!
+        """
+        left = 0
+        right = len(matrix[0]) - 1
+        top = 0
+        bottom = len(matrix[0]) - 1
+        n = len(matrix)
+        while left < right and top < bottom:
+            # location where firstnum should go (might del)
+
+            for i in range(n - 1):
+                # firstnumLocation = right
+                # square = always be for translations
+                #note [row][column]
+                firstnum = matrix[top][left + i]
+                matrix[top][left + i] = matrix[bottom - i][left]  # 15
+                matrix[bottom - i][left] = matrix[bottom][right - i]
+                matrix[bottom][right - i] = matrix[top + i][right]
+                matrix[top + i][right] = firstnum
+            left += 1
+            right -= 1
+            top += 1
+            bottom -= 1
+            n -= 2
+
+
+
+
+
+
+         
