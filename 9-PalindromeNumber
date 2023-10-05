@@ -1,0 +1,12 @@
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        numString = str(x)
+        j = 0
+        #print(numString)
+        numList = []
+        for i in numString[::-1]:
+            numList.append(i)
+            if numList[j] != numString[j]:
+                return False
+            j += 1
+        return True
