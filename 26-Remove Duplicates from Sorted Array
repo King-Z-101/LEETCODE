@@ -1,0 +1,21 @@
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        k = 1
+        nextIndex = 1
+        for i in range(len(nums) - 1):
+            unique_Num = nums[i]
+            if unique_Num != nums[i + 1]:
+                unique_Num = nums[i + 1]
+                nums[nextIndex] = unique_Num
+                nextIndex += 1
+                k += 1
+
+        return k
+
+
+#PseudoCode:
+# 1. go through list and compare each number with numbers next to it
+# 2. ignore matching numbers and continue (delete?)
+# 3. if number changes (unique number), add that number to next element in list and make 
+#that the newest unique number (new unique number to compare to).
+#increment k by 1
