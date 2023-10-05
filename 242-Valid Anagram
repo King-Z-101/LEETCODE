@@ -1,0 +1,35 @@
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        '''
+        Notes:
+        - t is an anagram of s (second string)
+        Pseudo:
+        1. add s strings to hashset 
+        2. check if each letter in t is in hashset (like a pointer going through t)
+        Learn: if they are not the same length we know that it can't be an anagram (edgecase)
+        1. popuplate t letters into array to see remove that specific char from t array
+        1. hashset don't add duplicates!!1!
+        2. i++ was making it so that we werent checking all letters in t_array (reason why pop is meant to pop the first thing in the array/ LIFO!!!)
+        '''
+        #edgcase
+        if len(s) != len(t):
+            return False
+        #now we have to build hashset
+        s_array = []
+        t_array = []
+        for letter in s:
+            s_array.append(letter)
+
+        for letter in t:
+            t_array.append(letter)
+
+        i = 0
+        while t_array and len(t_array) > i:
+            if t_array[i] in s_array:
+                s_array.remove(t_array[i])
+                t_array.pop(i)
+            else:
+                return False
+        if s_array:
+             return False
+        return True
