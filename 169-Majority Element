@@ -1,0 +1,41 @@
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        '''
+        Majority element = countNum > (n /2)
+        Pseudo:
+        1.
+        have a count var to count how many times a num appears
+        2.
+        have a for loop that goes through and selects a num from element
+        - count is started here
+        3. have a nested loop that goes through rest of array to count how many times a num
+        appears
+        - once reaches the end, compare: count > (n/2)
+        - if true: return element (use i from outside loop to find it)
+        - if false, break from nested loop and go again
+        '''
+        viewedNums = []
+        for i in range(len(nums)):
+            #count for an element will always start at 1
+            count = 1
+            j = i + 1
+            while j < len(nums):
+                if nums[i] in viewedNums:
+                    break
+                # check if this works at the end
+                if nums[i] == nums[j]:
+                    count += 1
+                j += 1
+                continue
+            if count > (len(nums)/2):
+                return nums[i]
+            else:
+                j = 0
+                viewedNums.append(nums[i])
+                continue
+        '''
+        I like this one:
+         nums.sort()
+        n = len(nums)
+        return nums[n//2]
+        '''
