@@ -1,0 +1,24 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        #preorder traversal (know its already ordered)
+        nodeStack = []
+        output = []
+        while True:
+            if root:
+                nodeStack.append(root)
+                root = root.left
+            elif root is None and nodeStack:
+                #batracks to previous node (nodestack contains the nodes and their children; node objects)
+                root = nodeStack.pop()
+                output.append(root.val)
+                root = root.right
+            #If there are no more nodes in the stack
+            else:
+                break
+        return output[k-1]
