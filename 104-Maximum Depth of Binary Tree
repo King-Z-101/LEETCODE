@@ -1,0 +1,20 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        #edge case
+        if root is None:
+            return 0
+        else:
+            '''
+            recursiion will be used to tackle this problem:
+            1. base case will be if node does not have left or right child
+                if so we know base case has been found (leaf has been reached)
+            2. if not we keep traversing the left and right subtrees
+            each recursion call returns a +1 to indicicate a new level has been reached 
+            '''
+            return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
