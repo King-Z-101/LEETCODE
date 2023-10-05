@@ -1,0 +1,21 @@
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        output_List = []
+        for i in range(len(nums)):
+            output_List.append(i)
+            root = nums[i]
+            #Finds another number in the list that adds up to target
+            for j in range(i + 1, len(nums)):
+                if root + nums[j] == target:
+                    output_List.append(j)
+                    return output_List
+            #there will be at most only one item in the list (only runs if second num   not found)
+            output_List.pop()
+                
+
+#Pseudocode:
+'''
+    1. go through nums list
+    2. check if a number is less than target and record it as a root
+    3. go through rest of list to find if there is another number that adds up to it, if not then move on to next possible root
+'''
