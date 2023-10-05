@@ -1,0 +1,17 @@
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        1. HInt said to use opposite directional two-pointers
+        - one at the start and one at the end
+        Once F and L point to the same char, stop!
+        """
+        first = 0
+        last = len(s) - 1
+        while first < last:
+            temp = s[first]
+            s[first] = s[last]
+            s[last] = temp
+            first += 1
+            last -= 1
+        
