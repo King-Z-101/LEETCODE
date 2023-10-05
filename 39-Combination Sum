@@ -1,0 +1,42 @@
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        result = []
+
+        def dfs(i, current, currentTarget):
+            if currentTarget == 0:
+                result.append(current.copy())
+                return
+            if i >= len(candidates) or currentTarget < 0:
+                return
+            current.append(candidates[i])
+            dfs(i, current, currentTarget - candidates[i])
+            current.pop()
+            dfs(i + 1, current, currentTarget)
+
+        dfs(0, [], target)
+        return result
+
+        # '''
+        # Has to do with backtracking/recursion
+        # base case: target = 0 (will be updated after each backtrack)
+        # edge case to look for:
+        # * target - element selected >= 0  --> possible combo!
+        # * smartly select next int based on updated target score (target - element >= 0)!!!
+        # * pop out elements that would be less than 0
+        # '''
+        # result = []
+        #
+        # def backtrack(currentCandidates, currentTarget):
+        #     # base
+        #     if currentTarget == 0:
+        #         #bro u almost had it good job!   B) (This is not giving u the distinct ones tho)
+        #         result.append(currentCandidates.copy())
+        #     else:
+        #         for element in candidates:
+        #             if currentTarget - element >= 0:
+        #                 currentCandidates.append(element)
+        #                 backtrack(currentCandidates, currentTarget - element)
+        #                 #if we get to this point we know that we have to pop the last element added
+        #                 currentCandidates.pop()
+        # backtrack([], target)
+        # return result
