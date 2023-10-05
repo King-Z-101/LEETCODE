@@ -1,0 +1,99 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode mergedList = null;
+        ListNode mergedListTail = null;
+        ListNode currentNode1 = list1;
+        ListNode currentNode2 = list2;
+        while (currentNode1 != null && currentNode2 != null) {
+            if (currentNode1.val < currentNode2.val) {
+                // populate mergeList
+                if (mergedList == null){
+                    mergedList = new ListNode(currentNode1.val);
+                    // changed currentNode1 to next in List1
+                    mergedListTail = mergedList;
+                    currentNode1 = currentNode1.next;
+                }
+                else {
+                    //add to mergedList
+                    mergedListTail.next = new ListNode(currentNode1.val);
+                    mergedListTail = mergedListTail.next;
+                    currentNode1 = currentNode1.next;
+                }
+            } else if (currentNode2.val < currentNode1.val) {
+                // populate mergeList
+                if (mergedList == null){
+                    mergedList = new ListNode(currentNode2.val);
+                    // changed currentNode1 to next in List1
+                    mergedListTail = mergedList;
+                    currentNode2 = currentNode2.next;
+                }
+                else {
+                    //add to mergedList
+                    mergedListTail.next = new ListNode(currentNode2.val);
+                    mergedListTail = mergedListTail.next;
+                    currentNode2 = currentNode2.next;
+                }
+            } else {
+                if (mergedList == null){
+                    mergedList = new ListNode(currentNode1.val);
+                    // changed currentNode1 to next in List1
+                    mergedListTail = mergedList;
+                    currentNode1 = currentNode1.next;
+                    mergedListTail.next = new ListNode(currentNode2.val);
+                    mergedListTail = mergedListTail.next;
+                    currentNode2 = currentNode2.next;
+                }
+                else {
+                    //two nodes of same value are in both lists
+                    mergedListTail.next = new ListNode(currentNode1.val);
+                    mergedListTail = mergedListTail.next;
+                    // populate the mergedList.next with currentNode2's value
+                    mergedListTail.next = new ListNode(currentNode2.val);
+                    mergedListTail = mergedListTail.next;
+                    currentNode1 = currentNode1.next;
+                    currentNode2 = currentNode2.next;
+                }
+            }
+        }
+        while (currentNode1 != null){
+            //return list1 since list2 is empty
+            if (mergedList == null){
+                mergedList = new ListNode(currentNode1.val);
+                mergedListTail = mergedList;
+                currentNode1 = currentNode1.next;
+            }
+            //add to mergedlist with list1 values
+            else{
+                mergedListTail.next = new ListNode(currentNode1.val);
+                mergedListTail = mergedListTail.next;
+                currentNode1 = currentNode1.next;
+            }
+        }
+
+        while (currentNode2 != null){
+            //return list2 since list1 is empty
+            if (mergedList == null){
+                mergedList = new ListNode(currentNode2.val);
+                mergedListTail = mergedList;
+                currentNode2 = currentNode2.next;
+            }
+            //add to mergedlist with list1 values
+            else{
+                mergedListTail.next = new ListNode(currentNode2.val);
+                mergedListTail = mergedListTail.next;
+                currentNode2 = currentNode2.next;
+            }
+        }
+        return mergedList;
+    }
+}
