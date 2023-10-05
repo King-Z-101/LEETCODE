@@ -1,0 +1,24 @@
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        result = 0
+        for num in nums:
+            result ^= num
+        return result
+        # num = None
+        # i = 0
+        # while len(nums) != 1:
+        #     if i == len(nums):
+        #         break
+        #     if num is None:
+        #         num = nums[i]
+        #     else:
+        #         if num == nums[i]:
+        #             #we know there is two of each!!!
+        #             nums.remove(num)
+        #             nums.remove(num)
+        #             num = None
+        #             i = 0
+        #             continue
+        #     i += 1
+        # return nums[0]
+            
