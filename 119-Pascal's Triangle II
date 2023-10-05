@@ -1,0 +1,28 @@
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+         #constraints tell us there will always be a numRow > 0
+        pascal_triangle = [[1]]
+        #trick: use two pointers to make the sum operations for each num in row easier
+        #first point will always start off with value 0, second will point to value from previous row
+        #outer loop appends rows in the pascal triangle
+        numRows = rowIndex + 1
+        if numRows >= 2:
+             #add 0's to beginning and end to make algo more efficient
+            starting_row = [0,1,0]
+            for i in range(numRows - 1):
+                new_row = []
+                pointer_one = starting_row[0]
+                pointer_two = starting_row[1]
+                #inner loop appends numbers into row being added
+                for j in range(len(starting_row)):
+                    new_row.append(pointer_one + pointer_two)
+                    if j + 2 == len(starting_row):
+                        break
+                    pointer_one = pointer_two
+                    pointer_two = starting_row[j+2]
+                #we know that the triangle is gonna contain a row generated through this algo
+                pascal_triangle.append(new_row)
+                starting_row = [0] + new_row + [0]
+                #add the 0's to the start and end of previous row
+
+        return pascal_triangle[-1] 
