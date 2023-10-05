@@ -1,0 +1,4 @@
+# Write your MySQL query statement below
+Select product_name, year, price
+From Sales s
+inner join Product p on s.product_id  = p.product_id  
