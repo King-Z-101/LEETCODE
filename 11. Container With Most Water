@@ -1,0 +1,33 @@
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        """ 
+        height array size = n = vertical lines drawn
+        #area = b x h; b = index difference between the two ends of container (first point 
+        #is 0 indexed, final point is at i)
+        h = tallest vertical line between the two endpoints
+
+        Pseudo:
+        1. use to pointers that start at the left and right ends of the int array
+        2. find the area and store it (b * h)
+        3. loop through the array, moving the left pointer by 1 to the right until u get an area bigger than previous calulated area
+        """
+        left = 0
+        right = len(height) - 1
+        b = 0
+        h = 0
+        calcArea = 0
+        currentArea = 0
+        while (left < right):
+            b = right - left
+            if (height[left] > height[right]):
+                h = height[right]
+                right -= 1
+            else:
+                h = height[left]
+                left += 1
+            currentArea = b * h
+            if (currentArea > calcArea):
+                calcArea = currentArea
+        return calcArea
+
+        
