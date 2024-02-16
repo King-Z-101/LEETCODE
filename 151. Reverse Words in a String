@@ -1,0 +1,17 @@
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        print(s)
+        #simpleS = " ".join(s.split())
+        #print(simpleS)
+        wordsArr = s.split()
+        print(wordsArr)
+        sentenceReversed = wordsArr[::-1] 
+        print(sentenceReversed)
+        result = ""
+        for word in sentenceReversed:
+            result += word + " "
+        #remove last space
+        result = result[:len(result) - 1]
+        return result
+
+        
