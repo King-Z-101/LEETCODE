@@ -1,0 +1,25 @@
+class Solution:
+    def explore(self, rooms, room, explored):
+        explored.add(room)
+        for neighbor in rooms[room]:
+            print(neighbor)
+            if neighbor not in explored:
+                self.explore(rooms, neighbor, explored)
+
+
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        S = set()
+        V = set()
+        explored = set()
+        for i in range(len(rooms)):
+            V.add(i)
+        print(V)
+        #should do this in one go compared to 349 dfs 
+        room = 0
+        if room not in explored:
+            self.explore(rooms, room, explored)
+        return len(explored) == len(V)
+        
+
+
+        
