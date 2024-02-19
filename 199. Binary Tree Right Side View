@@ -1,0 +1,58 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    '''
+    def explore(self, currentNode: Optional[TreeNode], rightSubtree: List[int]):
+        while (currentNode != None):
+            rightSubtree.append(currentNode.val)
+            if (currentNode.right != None):
+                self.explore(currentNode.right, rightSubtree)
+            elif (currentNode.left != None):
+                self.explore(currentNode.left, rightSubtree)
+            break
+    '''
+
+
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        '''
+        1. start at root
+        2. if no right node go left
+        3. keep going until end
+        4. base case: no node was passed
+        Note: compare if you are at the same level
+        Only deque if node has no children
+        If it does have children, enque the right child and then deque.
+        If q has two nodes, append the right child to result
+        before deque the left first element, check if it has children, if so enque them (if two children, right
+        , else the exisiting child)
+        1. before bfs: check if root exists, append to result
+        2. if root contains two children, queue them to Q; left then right child
+        2b. edge case: queue available child
+        3. if len(Q) == 2, append second element to result
+        4. first element: if it has children, enqueue right child or available child, deque parent
+        5. same process for second element before dequeueing it
+        '''
+        result = []
+        Q = []
+        if root:
+            Q.append(root)
+        while Q:
+            rightNode = None
+            #rightNode gets populated with the last node in the Qlevel
+            QLevelLength = len(Q)
+            for i in range(QLevelLength):
+                node = Q.pop(0)
+                if node:
+                    rightNode = node
+                    Q.append(node.left)
+                    Q.append(node.right)
+            if rightNode:
+                result.append(rightNode.val)
+
+        return result
+
+        
