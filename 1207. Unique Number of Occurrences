@@ -1,0 +1,21 @@
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        hashMap = {}
+        i = 0
+        while i < (len(arr)):
+            number = arr[i]
+            #print(number)
+            if number not in hashMap:
+                hashMap.setdefault(number, 1)
+            else:
+                hashMap.update({number: hashMap.get(number) + 1})
+            i += 1
+        #print(hashMap)
+        while hashMap:
+            number = hashMap.popitem()
+            freq = number[1]
+            if freq in hashMap.values():
+                return False
+        return True
+            
+        
