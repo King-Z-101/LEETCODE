@@ -1,0 +1,53 @@
+class Solution:
+    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
+        #distinct = Hashtable/hashmap
+        '''
+        Create one hastable for nums1 that stores the number /frequency of each element in one array
+        Iterate through the second array and check if the element can be found in the hashtable. if so, remove corresponding 
+        key from hashtable
+        Append the result for nums2 to one array and the remaining keys to the other
+        Note: duplicate numbers can be found in either array
+        Result can be empty if no differences can be found
+        1: 1
+        3: 1
+        [4, 6]
+        [1,3]
+        '''
+        result = []
+        num1Diff = []
+        num2Diff = []
+        hashTable = {}
+        hashTable2 = {}
+        for number in nums1:
+            if number in hashTable:
+                hashTable[number] += 1
+            else:
+                hashTable[number] = 1
+        for number in nums2:
+            if number in hashTable2:
+                hashTable2[number] += 1
+            else:
+                hashTable2[number] = 1
+        #hashKeys = hashTable.keys()
+        for key in hashTable.keys():
+            if key in hashTable2.keys():
+                hashTable2[key] = 0
+                hashTable[key] = 0
+        print(hashTable)
+        print(hashTable2)
+
+        keys1 = hashTable.keys()
+        keys2 = hashTable2.keys()
+        for key in keys1:
+            if hashTable[key] != 0:
+                num1Diff.append(key)
+        for key in keys2:
+            if hashTable2[key] != 0:
+                num2Diff.append(key)
+    
+        result.append(num1Diff)
+        result.append(num2Diff)
+        return result
+
+        
+        
