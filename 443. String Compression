@@ -1,0 +1,70 @@
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        s = ""
+        count = 1
+        index = 0
+        newarr = chars.copy()
+        print(newarr)
+        #base
+        if len(chars) == 1:
+            return len(chars)
+
+        for element in chars:
+            if len(s) == 0:
+                s += element
+            elif element == s[-1]:
+                count += 1
+                s += element
+            else:
+                #new character reached
+                chars[index: index + 1] = s[-1]
+                index += 1
+                #convert count to str
+                if count > 1:
+                    countStr = str(count)
+                    print(len(countStr))
+                    i = 1
+                    while i <= len(countStr):
+                        print(countStr[i - 1])
+                        print("Index: ", index)
+                        chars[index: index + 1] = countStr[i - 1]
+                        print(chars)
+                        i += 1
+                        index += 1
+                #reset time
+                s = ""
+                s += element
+                count = 1
+        print(s)
+        print(chars)
+        print(count)
+        if s != None:
+            chars[index: index + 1] = s[-1]
+            index += 1
+                #convert count to str
+            if count > 1:
+                countStr = str(count)
+                print(len(countStr))
+                i = 1
+                while i <= len(countStr):
+                    print(countStr[i - 1])
+                    print("Index: ", index)
+                    chars[index: index + 1] = countStr[i - 1]
+                    print(chars)
+                    i += 1
+                    index += 1
+        print(chars[:index])
+        chars = chars[:index]
+        return len(chars)
+
+            
+
+
+'''
+s = "ccc
+count = 3, "3"
+i = 1
+index = 4
+char = ["a", "2", "b", "2", ""]
+'''
+        
