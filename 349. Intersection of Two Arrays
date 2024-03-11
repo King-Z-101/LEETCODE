@@ -1,0 +1,22 @@
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        '''
+        - Hashtable: (num: freq)
+        - go through nums2 checking if it is in nums1 ht and freq != 0 (0 indicates it has alr been reg)
+        '''
+        ht = {}
+        for num in nums1:
+            if num not in ht:
+                ht[num] = 1
+            else:
+                ht[num] += 1
+        print(ht)
+        res = []
+        for num in nums2:
+            if num in ht.keys() and ht[num] != 0:
+                res.append(num)
+                ht[num] = 0
+        return res
+
+
+        
