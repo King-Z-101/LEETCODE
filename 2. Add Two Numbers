@@ -1,0 +1,47 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        '''
+        I = two linkedLists represting a number (positive integers or 0), digits stored in reverse
+        - 342 = [2,4,3]
+        -[5,6,4] = 465
+        O = sum of two numbers passed
+        Pseudo:
+        - get all the elemnents from each LL and store them in a string 
+        - reverse the strings to get the corresponding numbers that are represented by the LL: str[::-1]
+        - add the numbers as integers!!!
+        - turn the result into a string and reverse it again
+        - character by character and append it to the list
+        - bam bam
+        '''
+        num1 = ""
+        num2 = ""
+        while l1 != None:
+            num1 += str(l1.val)
+            l1 = l1.next
+        while l2 != None:
+            num2 += str(l2.val)
+            l2 = l2.next
+        print(num1)
+        print(num2)
+        num1 = num1[::-1]
+        num2 = num2[::-1]
+        res = int(num1) + int(num2)
+        resStr = str(res)
+        resStr = resStr[::-1]
+        print(resStr)
+        digitLL = ListNode()
+        #pointer to start of LL
+        resLL = digitLL
+        #get the char by index to make sure we don't create an extra node at the end
+        for i in range(len(resStr)):
+            digitLL.val = int(resStr[i])
+            if (i + 1) != len(resStr):
+                digitLL.next = ListNode()
+                digitLL = digitLL.next
+        return resLL
+        
