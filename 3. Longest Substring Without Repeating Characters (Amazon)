@@ -1,0 +1,72 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        '''
+        I: string (with repeated chars); could be empty = return 0 (edge)
+        O: length of longest substring
+        Psuedo:
+        Sliding window (LR pointers)
+        1) start at the beginning of the string (LR pointers start at S[0]); res = 1, currentMax = 1
+        2) loop through entire string until right reach end of s
+        2a) initiliaze a hashtable where key is a the letter pointed by right and the freq of that letter, 
+        initiliazed to 1.
+        2b) if letter at right + 1 is not equal to letter at right, currentMax +=1 and right +=1
+        2c) update the hashtable with the key, val pair for the corresponding letter at right
+        2d) if h[key] > 1, somewhere in the window there is a dup, for now we don't care where it is as long as 
+        we realize the end of the longest subsequence ends at right. if currentMax > res, set res to currentMax
+        and set currentMax to 0.
+        2e) move left pointer to right and continue
+
+        Note: u can store the indexes of where the longest substring was before moving left to find the substring
+        dvd
+        '''
+        if len(s) == 0:
+            return 0 
+        
+        res = 1
+        currentMax = 0
+        l = 0
+        r = 0
+        indexL = 0
+        indexR = 0
+        sHT = {}
+        while r < len(s):
+            if (s[r] not in sHT.keys()) or (sHT[s[r]] == 0):
+                sHT[s[r]] = 1
+            else:
+                sHT[s[r]] += 1
+            if sHT[s[r]] > 1:
+                if currentMax > res:
+                    res = currentMax
+                if (r - l) > (indexR - indexL):
+                    indexL = l
+                    indexR = r
+                
+                while l < r:
+                    #found the dup, move l directly ot r
+                    if s[l] == s[r]:
+                        sHT[s[l]] = 0
+                        currentMax = l - r
+                        l += 1
+                        break
+                    sHT[s[l]] = 0
+                    l += 1
+                #sHT[s[r]] = 1
+                continue
+            r += 1
+            currentMax += 1
+        
+        if currentMax > res:
+            res = currentMax
+
+        if (r - l) > (indexR - indexL):
+                    indexL = l
+                    indexR = r
+        
+        
+        print(s[indexL: indexR])
+        return (indexR - indexL)
+            
+
+
+
+        
