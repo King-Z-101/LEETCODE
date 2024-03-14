@@ -1,0 +1,32 @@
+class Solution:
+    def pivotInteger(self, n: int) -> int:
+        '''
+        I = positvie int
+        O = pivot int x or -1 if x does not exist 
+        Psuedo:
+        Hashtable bc ht:
+        '''
+        if n == 1:
+            return 1
+        
+        nHT = {}
+        i = 1
+        nSum = 0
+        while i <= n:
+            nSum += i
+            nHT[i] = nSum
+            i += 1
+        print(nHT)
+        i = n
+        nSum = 0
+        while i > 0:
+            nSum += i
+            res = [nHT[i], nSum]
+            nHT[i] = res
+            if nHT[i][0] == nHT[i][1]:
+                return i
+            i -= 1 
+        return -1
+            #if i 
+        
+        
