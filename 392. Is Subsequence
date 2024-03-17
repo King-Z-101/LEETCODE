@@ -1,0 +1,22 @@
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        '''
+        Intuition:
+        two pointer
+        start at the beginning and make your way towards the end of t
+        delete letter from s if that letter is found in t
+        Note: make sure its the first letter in s to keep strign integerity
+        Edge cases:
+        s.len = 0 (return true) 
+        '''
+        pointer = 0
+        if len(s) == 0:
+            return True
+        while pointer < len(t):
+            if t[pointer] == s[0]:
+                s = s[1:]
+            if len(s) == 0:
+                return True 
+            pointer += 1  
+        return False
+        
