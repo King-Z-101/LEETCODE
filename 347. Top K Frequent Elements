@@ -1,0 +1,40 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        '''
+        Paterns:
+        - 1 and 2 are chosen for example 1 because they are the most frequent (1 = 3, 2 = 2, 3 = 1)
+        Intuition:
+        HT: 
+        (number: freq)
+        1: 3
+        2: 2
+        3: 1
+        Sort the ht by freq
+        Edge cases:
+        k = size of nums: return each element in nums (example 2)
+        '''
+        numsHT = {}
+        for number in nums:
+            if number in numsHT.keys():
+                numsHT[number] += 1
+            else:
+                numsHT[number] = 1
+        print(numsHT)
+        #sort the ht by val
+        '''
+        So overall, the line of code sorts the dictionary numsHT based on its values in descending order, 
+        and then reconstructs it back into a dictionary. After executing this line, 
+        numsHT will contain the same key-value pairs as before, but the pairs will be sorted 
+        based on their values in descending order.
+        '''
+        numsHT = dict(sorted(numsHT.items(), key=lambda x: -x[1]))
+        print(numsHT)
+        res = []
+        i = 0
+        for key in numsHT.keys():
+            res.append(key)
+            i += 1
+            if i == k:
+                return res
+
+        
