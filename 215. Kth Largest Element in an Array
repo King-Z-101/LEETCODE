@@ -1,0 +1,21 @@
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        '''
+        Pattern/Findings:
+        Numbers can be repeated: example 2
+        4 is k off from 6 which is the biggest element
+        Intuition
+        HT: (number: distance from biggest number)
+        HEAP Type Shi (KTh element)
+        Edge cases
+        '''
+
+        heap = []
+        for num in nums:
+            heapq.heappush(heap, num)
+            if len(heap) > k:
+                heapq.heappop(heap)
+        
+        return heap[0]
+
+
