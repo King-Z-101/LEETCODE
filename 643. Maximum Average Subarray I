@@ -1,0 +1,35 @@
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        '''
+        Patterns/findings:
+        returned subwarry must have k length and have the max averge val from subarray (return val) 
+        Intuition: sliding window
+        l, r pointer
+        r keeps moving until l - r = k - 1
+        calculate the average in this subarry
+        store this subarrray in a res to be compared to future subarrys
+        Now move left and right by one until r < len(nums)
+        at each subwarry calculate max Average and compare to stored res to see if its bigger and return this val
+        Constaints: 
+        k != 0, k <= n
+        '''
+        l, r, res, indexL, indexR, currentTotal = 0, 0, None, 0, 0, 0, 
+        while r < len(nums):
+            if (r - l) != (k - 1):
+                currentTotal += nums[r]
+                r += 1
+            else:
+                currentTotal += nums[r]
+                if (res == None) or (res < (currentTotal / k)):
+                    res = currentTotal / k
+                    indexL, indexR = l, r
+                r += 1
+                if r == len(nums):
+                    break
+                currentTotal -= nums[l]
+                l += 1
+        print(nums[indexL : indexR + 1])
+        return res 
+                
+
+        
