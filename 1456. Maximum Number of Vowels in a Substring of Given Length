@@ -1,0 +1,28 @@
+class Solution:
+    def maxVowels(self, s: str, k: int) -> int:
+        '''
+        Problem: 
+        Find substrings of length k and record the maximum vowels in the substring
+        Intuition:
+        Maximum substring length = sliding window
+        Process:
+        go through entire string and mark substrings of length k, for each substring count the number of vowels
+        in that substring
+        Edge cases:
+        s.length = 1
+        k <= s.len
+        '''
+        l, r, res, count = 0, 0, 0, 0
+        vowels = "aeiou"
+        while r < len(s):
+            if s[r] in vowels:
+                count += 1
+                if count > res:
+                    res = count
+            if (r-l) == (k - 1):
+                if s[l] in vowels:
+                    count -= 1
+                l += 1
+            r += 1
+        return res
+        
