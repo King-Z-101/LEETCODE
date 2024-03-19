@@ -1,0 +1,85 @@
+'''
+Minimize/Maximize == HEAP!!!
+'''
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        '''
+        # Build frequency map
+        freq = [0] * 26
+        for ch in tasks:
+            freq[ord(ch) - ord('A')] += 1
+        '''
+
+        taskHT = {}
+        for task in tasks:
+            if task in taskHT.keys():
+                taskHT[task] += 1
+            else:
+                taskHT[task] = 1
+        pq = []
+        for task in taskHT:
+            pq.append(-(taskHT[task]))
+
+        
+        # Max heap to store frequencies
+        heapq.heapify(pq)
+
+        time = 0
+        # Process tasks until the heap is empty
+        while pq:
+            cycle = n + 1
+            store = []
+            task_count = 0
+            # Execute tasks in each cycle
+            while cycle > 0 and pq:
+                current_freq = -heapq.heappop(pq)
+                if current_freq > 1:
+                    store.append(-(current_freq - 1))
+                task_count += 1
+                cycle -= 1
+            # Restore updated frequencies to the heap
+            for x in store:
+                heapq.heappush(pq, x)
+            # Add time for the completed cycle
+            time += task_count if not pq else n + 1
+        return time
+
+'''
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        Pattern:
+        when if all possible tasks haven't reached cooling time, idle/-
+        n = cooling time for identical tasks (wait for n diff tasks to complete before doing the same task again)
+        output = Min num of intervals to complete all tasks
+        Intuition: 
+        taskHT = {}
+        for task in tasks:
+            if task in taskHT.keys():
+                taskHT[task] = [0, taskHT[task][1] + 1]
+            else:
+                taskHT[task] = [0, 1]
+
+        print(taskHT)
+        print(len(taskHT.keys()))
+        count = 0
+        notFinished = True
+        taskCompleted = 0
+        addIdle = 0
+        schedule = ""
+        while notFinished:
+            if taskCompleted == len(taskHT.keys()):
+                break
+            for task in taskHT.keys():
+                if taskHT[task][0] == 0 and taskHT[task][1] > 0:
+                    schedule += task
+                    taskHT[task][0] = n
+                    taskHT[task][1] -= 1
+                elif taskHT[task][1] == 0:
+                    taskCompleted += 1
+                else:
+                    addIdle += 1
+            if 
+                
+
+        return count
+'''   
