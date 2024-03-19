@@ -1,0 +1,26 @@
+class Solution:
+    def bs(self, nums, l, r, target, prevMid):
+        mid = ((r-l) // 2) + l
+        if nums[mid] == prevMid:
+            return mid + 1
+        if nums[mid] == target:
+            return mid
+        prevMid = nums[mid]
+        if nums[mid] < target:
+            return self.bs(nums, mid + 1, r, target, prevMid)
+        else:
+            return self.bs(nums, l, mid - 1, target, prevMid)
+
+
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        mid = (r - l) // 2
+        if nums[mid] == target:
+            return mid
+        prevMid = None
+        if nums[mid] < target:
+            return self.bs(nums, mid + 1, r, target, prevMid)
+        else:
+            return self.bs(nums, l, mid - 1, target, prevMid)
+
+        
