@@ -1,0 +1,37 @@
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        #base case
+        if len(word1) != len(word2):
+            return False
+        word1HT, word2HT = {}, {}
+        for letter in word1:
+            if letter in word1HT.keys():
+                word1HT[letter] += 1
+            else:
+                word1HT[letter] = 1
+        for letter in word2:
+            if letter in word2HT.keys():
+                word2HT[letter] += 1
+            else:
+                word2HT[letter] = 1
+        #print(word1HT)
+        #print(word2HT)
+        sortWord1HT = dict(sorted(word1HT.items(), key=lambda x: x[1])) 
+        sortWord2HT = dict(sorted(word2HT.items(), key=lambda x: x[1]))
+        print(sortWord1HT)
+        print(sortWord2HT)
+
+        if set(sortWord1HT.keys()) != set(sortWord2HT.keys()):
+            return False
+        
+        freq1 = list(sortWord1HT.values())
+        freq2 = list(sortWord2HT.values())
+        i = 0
+        while i < len(freq1):
+            if freq1[i] != freq2[i]:
+                return False
+            i += 1
+        return True
+
+
+        
