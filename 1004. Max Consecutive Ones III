@@ -1,0 +1,19 @@
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        l = 0
+        indexL, indexR = 0, 0
+        for r in range(len(nums)):
+            # If we encounter a zero, decrement k
+            if nums[r] == 0:
+                k -= 1
+            # If k is negative, slide the window to the right
+            if k < 0:
+                if (r - l - 1) > (indexR - indexL):
+                    indexL, indexR = l, r - 1
+                # If the left element is zero, increment k
+                if nums[l] == 0:
+                    k += 1
+                l += 1
+        # The length of the longest subarray with at most k zeros is r - l + 1
+        print(nums[indexL: indexR + 1])
+        return r - l + 1
