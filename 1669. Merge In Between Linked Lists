@@ -1,0 +1,37 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
+        '''
+        Pseudocode:
+        0 index Nodes starting at head of list1 (use dummy node to point to head of list1)
+        stop at node a-1 and be b+1 (make indexNodes that point to these positions)
+        Node(a-1).next = head of list2 (Node)
+        (Node at end of list2).next = b+1 Node
+        -You'll have to traverse list2 to get the last Node
+        return dummyNode.next
+        Skills, linkedlist, dummyNode, 
+        '''
+        dummyNode = ListNode(0, list1)
+        i = 0
+        #traverse list1 to get to a-1 Node
+        while True:
+            if i == (a - 1):
+                leftNode = list1
+            if i == (b + 1):
+                rightNode = list1
+                break
+            list1 = list1.next
+            i += 1
+
+        #found a-1 Node and b+1 Node, now time to add list2 to list1
+        leftNode.next = list2
+        while list2.next != None:
+            list2 = list2.next
+        #found ending Node of list2, now add rightNode to listNode.next
+        list2.next =  rightNode
+        return dummyNode.next
+        
