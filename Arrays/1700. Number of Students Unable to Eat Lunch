@@ -1,0 +1,26 @@
+class Solution:
+    def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
+        #prefer 0 or 1 not both, q (fifo)
+        #sandwiches r in stack (lifo) (q and stack are same size)
+        '''
+        front of q (j = 0) = head of stack (i = 0)
+        return length of q when no students can eat the head of the stack
+        q freqlist must be equal to stack freqList
+        '''
+        j = 0
+        i = 0
+        while students:
+            if students[j] == sandwiches[i]:
+                students = students[1:]
+                sandwiches = sandwiches[1:]
+            else:
+                if sandwiches[i] not in students:
+                    break
+                tempStudent = students.pop(0)
+                students.append(tempStudent)
+
+
+        
+
+        return len(students)
+        
