@@ -1,0 +1,40 @@
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        '''
+        Pattern:
+        - len(digit) = len of element in res
+        - empty digits = []
+        I:
+         mapping = hash table
+         all possible letter combinations = backtracking
+        A:
+        - create mapping of num to letters
+        - for each letter of a digit, recurse through all other letters from remaining digits  until len of element is len of digits
+
+        T:
+        '''
+        digitMap = {
+            "2" : "abc",
+            "3" : "def",
+            "4" : "ghi",
+            "5" : "jkl",
+            "6" : "mno",
+            "7" : "pqrs",
+            "8" : "tuv",
+            "9" : "wxyz"
+        }
+        res = []
+
+        def backTrack(i, curStr):
+            if len(curStr) == len(digits):
+                res.append(curStr)
+                #stops us from going out of bounds
+                return
+            for letter in digitMap[digits[i]]:
+                backTrack(i + 1, curStr + letter)
+
+        if digits:
+            backTrack(0, "")
+
+        return res
+        
