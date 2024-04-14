@@ -1,0 +1,45 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
+        Q = [] # fifo = insert
+        res = 0
+        if root.left:
+            if root.left.left == None and root.left.right == None:
+                res += root.left.val  
+            Q.insert(0, root.left)
+        if root.right:
+            Q.insert(0, root.right)
+
+        while Q:
+            Qlen = len(Q) #length of current level
+            i = 0
+            while i < Qlen:
+                currentNode = Q.pop()  
+                if currentNode.left:
+                    if currentNode.left.left == None and currentNode.left.right == None:
+                        res += currentNode.left.val  
+                    Q.insert(0, currentNode.left)
+                if currentNode.right:
+                    Q.insert(0, currentNode.right)
+                i += 1
+            
+        return res
+        '''
+        P:
+        Binary Tree
+        Intuition:
+        DFS or BFS
+        BFS because we are trying to get all the left children at each level
+        A:
+        - Q that contains the nodes at each level
+        - Check if each node contains a left child and add that to res
+        -continue until you reach end of BT
+
+        T: O(n)
+        '''
+        
