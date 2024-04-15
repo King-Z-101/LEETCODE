@@ -1,0 +1,25 @@
+class Solution:
+    def makesquare(self, matchsticks: List[int]) -> bool:
+        matchSum = sum(matchsticks)
+        if matchSum % 4 != 0:
+            return False
+        
+        matchsticks.sort(reverse=True)
+        sideLen = matchSum / 4
+        sides = [0] * 4
+
+        def backTrack(i):
+            if i == len(matchsticks):
+                return True
+            for j in range(len(sides)):
+                if sides[j] + matchsticks[i] <= sideLen:
+                    sides[j] += matchsticks[i]
+                    if backTrack(i + 1):
+                        return True
+                    sides[j] -= matchsticks[i]
+            return False
+
+        return backTrack(0)
+
+
+        
