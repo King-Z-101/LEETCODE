@@ -1,0 +1,36 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        res = []
+        def explore(curr, entry):
+            entry += str(curr.val)
+            #identify base case of when to append a number to res = when we reach a leaf
+            if curr.left == None and curr.right == None:
+                res.append(int(entry))
+            else:
+                if curr.left:
+                    explore(curr.left, entry)
+                if curr.right:
+                    explore(curr.right, entry)
+
+        def dfs(node):
+            entry = ""
+            entry += str(node.val)
+            if node.left == None and node.right == None:
+                res.append(int(entry))
+            else:
+                if node.left:
+                    explore(node.left, entry)
+                if node.right:
+                    explore(node.right, entry)
+            
+        
+        dfs(root)
+
+        return sum(res)
+        
