@@ -1,0 +1,62 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def addOneRow(self, root: Optional[TreeNode], val: int, depth: int) -> Optional[TreeNode]:
+        if depth == 1:
+            original = root
+            newNode = TreeNode(val, original)
+            return newNode
+        parentLevel = depth - 1
+        currentLevel = 1
+        q = [root]
+        levelSize = len(q)
+        i = 0
+
+        while i < levelSize:
+            if currentLevel == parentLevel:
+                while q:
+                    parent = q.pop(0)
+                    left = parent.left
+                    right = parent.right
+                    #get all cildren from nodes in this parent level
+
+                    newLeft = TreeNode(val, left)
+                    newRight = TreeNode(val, None, right)
+
+                    parent.left = newLeft
+                    parent.right = newRight
+                return root
+            else:
+                while q:
+                    parent = q.pop(0)
+                    left = parent.left
+                    right = parent.right
+                    if left:
+                        q.append(left)
+                    if right:
+                        q.append(right)
+                    i += 1
+                    if i == levelSize:
+                        i = 0
+                        levelSize = len(q)
+                        currentLevel += 1
+                        break
+                        #print("levelSize", levelSize)
+
+
+
+'''
+Patterns:
+root is at depth 1
+parent row/nodes are at d - 1
+if d = 1, new node inserted is the new root, orginal root moves to left subtree of new node
+I: BFS (row insertion)
+Approach:
+    - get parent row with d-1
+    - store parent row's left and right subtree's 
+    - get depth row elements 
+'''  
