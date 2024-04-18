@@ -1,0 +1,58 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def smallestFromLeaf(self, root: Optional[TreeNode]) -> str:
+        def dfs(node, acc):
+            acc += chr(node.val + 97) 
+            if not node.left and not node.right:
+                return acc[::-1]
+            elif not node.left or not node.right:
+                return dfs(node.left if node.left else node.right, acc)
+            else:
+                return min(dfs(node.left, acc), dfs(node.right, acc))
+
+        return dfs(root, '')
+'''
+class Solution:
+    def smallestFromLeaf(self, root: Optional[TreeNode]) -> str:
+        def dfs(node, strSum, acc):
+            if not node.left and not node.right:
+                return strSum, acc
+            else:
+                if node.left:
+                    left, leftSTR = \
+                        dfs(node.left, strSum + node.left.val, acc + chr((node.left.val +  97)))
+                if node.right:
+                    right, rightSTR = \
+                        dfs(node.right, strSum + node.right.val, acc + chr((node.right.val+97)))
+                if left < right:
+                    return leftSTR
+                return rightSTR
+
+        if root.left:
+            left, leftSTR = dfs(root.left, root.val, chr((root.val + 97))) 
+        if root.right:
+            right, rightSTR = dfs(root.right, root.val, chr((root.val + 97)))
+
+        if left < right:
+            return leftSTR[::-1]
+        return rightSTR[::-1]
+
+        Patterns:
+        range min is 1 (root node)
+        I: DFS
+        A:
+            recurse through left and right subtrees
+            BASE:
+                node.left and node.right == null
+            else:
+                min(traverse left subtree, traverse right subtree)
+                traverse left subtree = dfs(node.left, sum + node.left.val, str + chr(int(node.left.val) +  97)
+            
+        '''
+        
