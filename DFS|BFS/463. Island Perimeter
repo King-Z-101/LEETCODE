@@ -1,0 +1,40 @@
+class Solution:
+    '''
+    perimeter = 4 - numbr of neighbors
+    '''
+
+
+    #def dfs(graph, vertices):
+    
+
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
+        graph = {}
+        row = set()
+        for i in range(len(grid)):
+            graph[i] = []
+            row.add(i)
+            for j in range(len(grid[i])):
+                if grid[i][j] == 1: #and grid[i][i] != isConnected[i][j]:
+                    graph[i].append(j)
+        print(graph)
+        print(row)
+        res = 0
+        for level in range(len(row)):
+            for land in graph[level]:
+                acc = 4
+                #up and down
+                if level - 1 >= 0 and grid[level-1][land] == 1:
+                    acc -= 1
+                if level + 1 < len(row) and grid[level+1][land] == 1:
+                    acc -= 1
+                #left and right
+                if land - 1 >= 0 and grid[level][land-1] == 1:
+                    acc -= 1
+                if land + 1 < len(grid[level]) and grid[level][land+1] == 1:
+                    acc -= 1
+                res += acc
+        return res
+
+    
+        
+        
