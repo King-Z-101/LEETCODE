@@ -1,0 +1,67 @@
+class Solution:
+    def findFarmland(self, land: List[List[int]]) -> List[List[int]]:
+        rows, cols = len(land), len(land[0])
+        visit = set()
+
+        def dfs(r, c, ans):
+            if r < 0 or r == rows or c < 0 or c == cols or land[r][c] == 0 or (r, c) in visit:
+                return []
+            visit.add((r, c))
+
+            ans[0] = min(ans[0], r)
+            ans[1] = min(ans[1], c)
+            ans[2] = max(ans[2], r)
+            ans[3] = max(ans[3], c)
+
+            dfs(r, c+1, ans)
+            dfs(r, c-1, ans)
+            dfs(r+1, c, ans)
+            dfs(r-1, c, ans)
+
+        result = []
+        for r in range(rows):
+            for c in range(cols):
+                if land[r][c] == 1 and (r, c) not in visit:
+                    group = [r, c, r, c]
+                    dfs(r, c, group)
+                    result.append(group)
+                    
+        return result
+                    
+
+
+'''
+class Solution:
+    def findFarmland(self, land: List[List[int]]) -> List[List[int]]:
+        def dfs(explored, r, c):
+            cell = (r,c)
+            #base
+            if r < 0 or r == len(land) or c < 0 or c == len(land[r]) \
+            or land[r][c] == 0 or cell in explored:
+                return float('inf'), float('-inf'), float('inf'), float('-inf')
+            explored.add(cell)
+            left = min(r,c)
+            right = max(r,c)
+            #recursive calls
+            #recursive calls
+            topLeftR, topLeftC, bottomRightR, bottomRightC = dfs(explored, r - 1, c), \
+            dfs(explored, r, c - 1), dfs(explored, r + 1, c), dfs(explored, r, c + 1)
+            return min(topLeftR, r), min(topLeftC, c), max(bottomRightR, r), max(bottomRightC, c)
+
+        explored = set() #(r,c)
+        res = []
+        for r in range(len(land)):
+            for c in range(len(land[r])):
+                cell = (r,c)
+                if land[r][c] == 1 and cell not in explored:
+                    entry = dfs(explored, r, c)
+                    res.append(list(entry))
+        return res
+
+
+        
+
+        P/P: r == c  
+        I: dfs + keep track of the coordinated of each group
+'''
+        
