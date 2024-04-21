@@ -1,0 +1,57 @@
+class Solution:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        graph = {}
+        explore = set()
+
+        for i in range(n):
+            graph[i] = []
+        for edge in edges:
+            v1 = edge[0]
+            v2 = edge[1]
+
+            graph[v1].append(v2)
+            graph[v2].append(v1)
+        '''
+        graph = {
+            0: [1,2]
+            1: [0]
+            2: [0,1]
+            3: [4,5]
+            4: [3,5]
+            5: [3,4]
+        }
+        explore(0,1,
+        '''
+
+        def dfs(s, t):
+            if s == t:
+                return True
+            explore.add(s)
+            for neighbor in graph[s]:
+                if neighbor not in explore:
+                    if dfs(neighbor, t):
+                        return True
+            return False
+
+        return dfs(source, destination)
+
+        '''
+        P/P:
+        - there will at least one node present in the graph
+        - edges could 0 (meaning that there is one vertex)
+        -
+        I:
+        - BFS or DFS:
+        - Determine reachability = dfs
+        A: 
+        - Create graph implementation: 
+        graph = {
+            0: [1,2]
+            1: [0,2]
+            2: [0,1]
+            3: [4,5]
+            4: [3,5]
+            5: [3,4]
+        }
+
+        '''
