@@ -1,0 +1,30 @@
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]: #[[1,100],[4,6], [8,10]]
+        intervals.sort()
+        entryInterval = []
+        res = []
+        for i, f in intervals: #i = 8, f = 10, e: [8,10]
+            if len(entryInterval) == 0:
+                entryInterval = [i,f]
+                continue
+            if i <= entryInterval[1]:
+                #found intersection, 
+                entryInterval = [entryInterval[0], max(f, entryInterval[1])]
+            else:
+                #we have found a new interval, now append
+                res.append(entryInterval)
+                entryInterval = [i,f]
+        res.append(entryInterval)
+        return res
+
+
+
+        '''
+        P/P:
+        - input min will always be one 
+        - each element is [i,f]
+        I:
+        - O(N), running iteravily
+        - Elements were sorted by start(I)
+        Ex: [[1,3],[2,6],[6,10],[15,18]]
+        '''
